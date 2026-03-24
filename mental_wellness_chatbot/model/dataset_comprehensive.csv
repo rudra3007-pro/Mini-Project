@@ -1,0 +1,1401 @@
+text,sentiment,stress_level
+hopeful,positive,low
+i feel hopeful,positive,low
+feeling hopeful,positive,low
+i am hopeful,positive,low
+it is hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+very hopeful,positive,low
+resilient,positive,low
+i feel resilient,positive,low
+feeling resilient,positive,low
+i am resilient,positive,low
+it is resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+very resilient,positive,low
+calm,positive,low
+i feel calm,positive,low
+feeling calm,positive,low
+i am calm,positive,low
+it is calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+very calm,positive,low
+motivated,positive,low
+i feel motivated,positive,low
+feeling motivated,positive,low
+i am motivated,positive,low
+it is motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+very motivated,positive,low
+content,positive,low
+i feel content,positive,low
+feeling content,positive,low
+i am content,positive,low
+it is content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+very content,positive,low
+energetic,positive,low
+i feel energetic,positive,low
+feeling energetic,positive,low
+i am energetic,positive,low
+it is energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+very energetic,positive,low
+confident,positive,low
+i feel confident,positive,low
+feeling confident,positive,low
+i am confident,positive,low
+it is confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+very confident,positive,low
+blessed,positive,low
+i feel blessed,positive,low
+feeling blessed,positive,low
+i am blessed,positive,low
+it is blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+very blessed,positive,low
+peaceful,positive,low
+i feel peaceful,positive,low
+feeling peaceful,positive,low
+i am peaceful,positive,low
+it is peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+very peaceful,positive,low
+strong,positive,low
+i feel strong,positive,low
+feeling strong,positive,low
+i am strong,positive,low
+it is strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+very strong,positive,low
+stable,positive,low
+i feel stable,positive,low
+feeling stable,positive,low
+i am stable,positive,low
+it is stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+very stable,positive,low
+inspired,positive,low
+i feel inspired,positive,low
+feeling inspired,positive,low
+i am inspired,positive,low
+it is inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+very inspired,positive,low
+grateful,positive,low
+i feel grateful,positive,low
+feeling grateful,positive,low
+i am grateful,positive,low
+it is grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+very grateful,positive,low
+optimistic,positive,low
+i feel optimistic,positive,low
+feeling optimistic,positive,low
+i am optimistic,positive,low
+it is optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+very optimistic,positive,low
+refreshed,positive,low
+i feel refreshed,positive,low
+feeling refreshed,positive,low
+i am refreshed,positive,low
+it is refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+very refreshed,positive,low
+balanced,positive,low
+i feel balanced,positive,low
+feeling balanced,positive,low
+i am balanced,positive,low
+it is balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+very balanced,positive,low
+hopeless,negative,high
+i feel hopeless,negative,high
+feeling hopeless,negative,high
+i am hopeless,negative,high
+it is hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+very hopeless,negative,high
+burnt out,negative,high
+i feel burnt out,negative,high
+feeling burnt out,negative,high
+i am burnt out,negative,high
+it is burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+very burnt out,negative,high
+lonely,negative,high
+i feel lonely,negative,high
+feeling lonely,negative,high
+i am lonely,negative,high
+it is lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+very lonely,negative,high
+overwhelmed,negative,high
+i feel overwhelmed,negative,high
+feeling overwhelmed,negative,high
+i am overwhelmed,negative,high
+it is overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+very overwhelmed,negative,high
+worthless,negative,high
+i feel worthless,negative,high
+feeling worthless,negative,high
+i am worthless,negative,high
+it is worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+very worthless,negative,high
+anxious,negative,high
+i feel anxious,negative,high
+feeling anxious,negative,high
+i am anxious,negative,high
+it is anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+very anxious,negative,high
+angry,negative,high
+i feel angry,negative,high
+feeling angry,negative,high
+i am angry,negative,high
+it is angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+very angry,negative,high
+lost,negative,high
+i feel lost,negative,high
+feeling lost,negative,high
+i am lost,negative,high
+it is lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+very lost,negative,high
+frustrated,negative,high
+i feel frustrated,negative,high
+feeling frustrated,negative,high
+i am frustrated,negative,high
+it is frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+very frustrated,negative,high
+depressed,negative,high
+i feel depressed,negative,high
+feeling depressed,negative,high
+i am depressed,negative,high
+it is depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+very depressed,negative,high
+scared,negative,high
+i feel scared,negative,high
+feeling scared,negative,high
+i am scared,negative,high
+it is scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+very scared,negative,high
+guilty,negative,high
+i feel guilty,negative,high
+feeling guilty,negative,high
+i am guilty,negative,high
+it is guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+very guilty,negative,high
+exhausted,negative,high
+i feel exhausted,negative,high
+feeling exhausted,negative,high
+i am exhausted,negative,high
+it is exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+very exhausted,negative,high
+miserable,negative,high
+i feel miserable,negative,high
+feeling miserable,negative,high
+i am miserable,negative,high
+it is miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+very miserable,negative,high
+ignored,negative,high
+i feel ignored,negative,high
+feeling ignored,negative,high
+i am ignored,negative,high
+it is ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+very ignored,negative,high
+broken,negative,high
+i feel broken,negative,high
+feeling broken,negative,high
+i am broken,negative,high
+it is broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+very broken,negative,high
+hlo,neutral,medium
+i feel hlo,neutral,medium
+feeling hlo,neutral,medium
+i am hlo,neutral,medium
+it is hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+very hlo,neutral,medium
+hi,neutral,medium
+i feel hi,neutral,medium
+feeling hi,neutral,medium
+i am hi,neutral,medium
+it is hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+very hi,neutral,medium
+hey,neutral,medium
+i feel hey,neutral,medium
+feeling hey,neutral,medium
+i am hey,neutral,medium
+it is hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+very hey,neutral,medium
+hello,neutral,medium
+i feel hello,neutral,medium
+feeling hello,neutral,medium
+i am hello,neutral,medium
+it is hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+very hello,neutral,medium
+hola,neutral,medium
+i feel hola,neutral,medium
+feeling hola,neutral,medium
+i am hola,neutral,medium
+it is hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+very hola,neutral,medium
+namaste,neutral,medium
+i feel namaste,neutral,medium
+feeling namaste,neutral,medium
+i am namaste,neutral,medium
+it is namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+very namaste,neutral,medium
+goodmorning,neutral,medium
+i feel goodmorning,neutral,medium
+feeling goodmorning,neutral,medium
+i am goodmorning,neutral,medium
+it is goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+very goodmorning,neutral,medium
+goodevening,neutral,medium
+i feel goodevening,neutral,medium
+feeling goodevening,neutral,medium
+i am goodevening,neutral,medium
+it is goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+very goodevening,neutral,medium
+okay,neutral,medium
+i feel okay,neutral,medium
+feeling okay,neutral,medium
+i am okay,neutral,medium
+it is okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+very okay,neutral,medium
+fine,neutral,medium
+i feel fine,neutral,medium
+feeling fine,neutral,medium
+i am fine,neutral,medium
+it is fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+very fine,neutral,medium
+usual,neutral,medium
+i feel usual,neutral,medium
+feeling usual,neutral,medium
+i am usual,neutral,medium
+it is usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+very usual,neutral,medium
+productive,neutral,medium
+i feel productive,neutral,medium
+feeling productive,neutral,medium
+i am productive,neutral,medium
+it is productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+very productive,neutral,medium
+average,neutral,medium
+i feel average,neutral,medium
+feeling average,neutral,medium
+i am average,neutral,medium
+it is average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+very average,neutral,medium
+normal,neutral,medium
+i feel normal,neutral,medium
+feeling normal,neutral,medium
+i am normal,neutral,medium
+it is normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+very normal,neutral,medium
+observing,neutral,medium
+i feel observing,neutral,medium
+feeling observing,neutral,medium
+i am observing,neutral,medium
+it is observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+very observing,neutral,medium
+thinking,neutral,medium
+i feel thinking,neutral,medium
+feeling thinking,neutral,medium
+i am thinking,neutral,medium
+it is thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+very thinking,neutral,medium
+busy,neutral,medium
+i feel busy,neutral,medium
+feeling busy,neutral,medium
+i am busy,neutral,medium
+it is busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+very busy,neutral,medium
+regular,neutral,medium
+i feel regular,neutral,medium
+feeling regular,neutral,medium
+i am regular,neutral,medium
+it is regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+very regular,neutral,medium
+standard,neutral,medium
+i feel standard,neutral,medium
+feeling standard,neutral,medium
+i am standard,neutral,medium
+it is standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+very standard,neutral,medium
+stable,neutral,medium
+i feel stable,neutral,medium
+feeling stable,neutral,medium
+i am stable,neutral,medium
+it is stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+very stable,neutral,medium
+detached,neutral,medium
+i feel detached,neutral,medium
+feeling detached,neutral,medium
+i am detached,neutral,medium
+it is detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+very detached,neutral,medium
+monotone,neutral,medium
+i feel monotone,neutral,medium
+feeling monotone,neutral,medium
+i am monotone,neutral,medium
+it is monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+very monotone,neutral,medium
+routine,neutral,medium
+i feel routine,neutral,medium
+feeling routine,neutral,medium
+i am routine,neutral,medium
+it is routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+very routine,neutral,medium
+common,neutral,medium
+i feel common,neutral,medium
+feeling common,neutral,medium
+i am common,neutral,medium
+it is common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium
+very common,neutral,medium

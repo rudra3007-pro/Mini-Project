@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindEase — Mental Wellness Chatbot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+
+  <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🧠</div>
+      <div>
+        <h1 class="brand-name">MindEase</h1>
+        <p class="brand-tagline">Your wellness companion</p>
+      </div>
+    </div>
+
+    <!-- Live Analysis -->
+    <div class="nav-label">Live Analysis</div>
+    <div class="analysis-card">
+      <div class="analysis-row">
+        <span class="analysis-label">Sentiment</span>
+        <span class="badge" id="badge-sentiment">—</span>
+      </div>
+      <div class="analysis-row" style="margin-top:.75rem;">
+        <span class="analysis-label">Stress Level</span>
+        <span class="badge" id="badge-stress">—</span>
+      </div>
+    </div>
+
+    <!-- Model Info -->
+    <div class="nav-label" style="margin-top:1.5rem;">🏆 Active Models</div>
+    <div class="analysis-card">
+      <div class="model-row">
+        <span class="model-label">Sentiment</span>
+        <span class="model-value">{{ model_info.sentiment_model }}</span>
+        <span class="model-acc">{{ model_info.sentiment_acc }}%</span>
+      </div>
+      <div class="model-row" style="margin-top:.6rem;">
+        <span class="model-label">Stress</span>
+        <span class="model-value">{{ model_info.stress_model }}</span>
+        <span class="model-acc">{{ model_info.stress_acc }}%</span>
+      </div>
+      <p class="model-note">Best CV accuracy wins between Logistic Regression &amp; Naive Bayes</p>
+      <a href="/report" target="_blank" class="report-link">📊 View full comparison →</a>
+    </div>
+
+    <!-- Helplines -->
+    <div class="nav-label" style="margin-top:1.5rem;">🆘 Helplines</div>
+    <div class="helpline-list">
+      <div class="helpline-item"><strong>iCall</strong><br/>9152987821</div>
+      <div class="helpline-item"><strong>Vandrevala Foundation</strong><br/>1860-2662-345 (24×7)</div>
+      <div class="helpline-item"><strong>NIMHANS</strong><br/>080-46110007</div>
+    </div>
+
+    <button class="clear-btn" id="clear-btn">🗑 Clear Chat</button>
+  </aside>
+
+  <!-- ── Main Chat ─────────────────────────────────────────────────────── -->
+  <main class="chat-container">
+
+    <header class="chat-header">
+      <div class="header-left">
+        <div class="status-dot"></div>
+        <span>MindEase is here for you</span>
+      </div>
+      <span class="header-sub">GLA University · CSE Mini Project 2025-26</span>
+    </header>
+
+    <div class="messages" id="messages">
+      <div class="msg bot-msg">
+        <div class="msg-avatar">🧠</div>
+        <div class="msg-bubble">
+          <p>Hello! 👋 I'm <strong>MindEase</strong>, your personal mental wellness companion.</p>
+          <p style="margin-top:.5rem;">Feel free to share how you're feeling today — about college, studies, relationships, or anything on your mind. I'm here to listen and support you. 💙</p>
+          <p style="margin-top:.5rem;font-size:.8rem;opacity:.7;">⚠️ I am not a medical professional. For clinical support please contact a counselor.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="typing-indicator hidden" id="typing">
+      <div class="msg-avatar">🧠</div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="input-area">
+      <textarea id="user-input" placeholder="Share how you're feeling today…" rows="1" maxlength="500"></textarea>
+      <button id="send-btn" title="Send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>
