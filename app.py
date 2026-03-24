@@ -22,7 +22,15 @@ from chatbot.groq_response   import get_groq_response
 app       = Flask(__name__)
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 
-# ── Load Models ───────────────────────────────────────────────────────────────
+# ── Lazy Model Loading ────────────────────────────────────────────────────────
+_models = None  # Not loaded at startup
+
+def get_models():
+    global _models
+    if _models is None:
+        _models = load_models()
+    return _models
+
 def load_models():
     m = {}
     files = {
@@ -80,14 +88,12 @@ def load_models():
 
     return m
 
-models = load_models()
-
 # ── Prediction Helpers ────────────────────────────────────────────────────────
 def predict_sentiment(text: str) -> str:
+    models = get_models()
     if not text or not text.strip():
         return "neutral"
 
-    # RNN prediction
     if "sentiment_rnn" in models and "tokenizer_sent" in models:
         try:
             seq    = models["tokenizer_sent"].texts_to_sequences([text])
@@ -98,7 +104,6 @@ def predict_sentiment(text: str) -> str:
         except Exception as e:
             print(f"[RNN Sentiment] Error: {e}")
 
-    # ML fallback
     if "sentiment_clf" in models:
         vec = models["sentiment_vec"].transform([text])
         return models["sentiment_clf"].predict(vec)[0]
@@ -107,12 +112,12 @@ def predict_sentiment(text: str) -> str:
 
 
 def predict_stress(text: str, rule_stress: str) -> str:
+    models = get_models()
     if not text or not text.strip():
         return rule_stress or "low"
 
     ml_stress = rule_stress
 
-    # RNN prediction
     if "stress_rnn" in models and "tokenizer_stress" in models:
         try:
             seq       = models["tokenizer_stress"].texts_to_sequences([text])
@@ -123,18 +128,17 @@ def predict_stress(text: str, rule_stress: str) -> str:
         except Exception as e:
             print(f"[RNN Stress] Error: {e}")
 
-    # ML fallback
     elif "stress_clf" in models:
         vec       = models["stress_vec"].transform([text])
         ml_stress = models["stress_clf"].predict(vec)[0]
 
-    # Rule-based HIGH always wins (safety first)
-    if rule_stress == "high" or ml_stress == "high":   return "high"
+    if rule_stress == "high" or ml_stress == "high":     return "high"
     if rule_stress == "medium" or ml_stress == "medium": return "medium"
     return "low"
 
 
 def get_model_info():
+    models = get_models()
     s_meta = models.get("sentiment_meta", {})
     t_meta = models.get("stress_meta", {})
     return {
@@ -158,7 +162,6 @@ def chat():
     if not user_msg:
         return jsonify({"error": "Empty message"}), 400
 
-    # ── ML Pipeline (sidebar badges only) ────────────────────────
     cleaned     = preprocess(user_msg)
     crisis      = is_crisis(user_msg)
     sentiment   = predict_sentiment(cleaned)
@@ -171,7 +174,6 @@ def chat():
 
     print(f"[ML] '{user_msg[:50]}' → sentiment={sentiment}, stress={stress}")
 
-    # ── Groq AI (fully independent) ──────────────────────────────
     response = get_groq_response(user_msg, is_crisis=crisis)
 
     return jsonify({
@@ -186,10 +188,10 @@ def chat():
 @app.route("/train")
 def train():
     import subprocess
+    global _models
     script = os.path.join(MODEL_DIR, "train_model.py")
     result = subprocess.run([sys.executable, script], capture_output=True, text=True)
-    global models
-    models = load_models()
+    _models = load_models()  # Reload after training
     return jsonify({"status": "done", "stdout": result.stdout, "stderr": result.stderr})
 
 
