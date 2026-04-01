@@ -4,11 +4,17 @@ groq_response.py
 Groq AI - responds like a normal friendly chatbot.
 No dependency on ML models at all.
 """
-
+import os
 import requests
+from dotenv import load_dotenv
 
-GROQ_API_KEY = "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"
-GROQ_URL     = "https://api.groq.com/openai/v1/chat/completions"
+load_dotenv()  # loads variables from .env file into environment
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY not found. Make sure it's set in your .env file.")
+
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 CRISIS_RESPONSE = (
     "🆘 Please reach out for immediate help:\n\n"
@@ -19,9 +25,7 @@ CRISIS_RESPONSE = (
 )
 
 SYSTEM_PROMPT = """You are MindEase, a friendly chatbot for college students.
-
 Talk like a normal friend — casual, short, natural. NOT like a therapist or counselor.
-
 Examples of how to talk:
 - User: "i am good" → "That's great! 😊 What's up?"
 - User: "i am not well" → "Aww, what happened? 🙁"
@@ -30,7 +34,6 @@ Examples of how to talk:
 - User: "are you an AI" → "Yep! I'm MindEase 😄 Here to chat whenever you need"
 - User: "i am bored" → "Same lol 😅 What do you usually do when bored?"
 - User: "i failed my exam" → "Oh no 😟 That sucks. What happened?"
-
 Rules:
 - Max 2 sentences
 - Casual and natural tone
@@ -49,7 +52,6 @@ def get_groq_response(user_message: str, is_crisis: bool = False) -> str:
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type":  "application/json",
     }
-
     payload = {
         "model": "llama-3.1-8b-instant",
         "messages": [
@@ -61,7 +63,6 @@ def get_groq_response(user_message: str, is_crisis: bool = False) -> str:
     }
 
     print(f"[Groq] → {user_message}")
-
     try:
         resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=20)
         if resp.status_code == 200:
@@ -71,7 +72,6 @@ def get_groq_response(user_message: str, is_crisis: bool = False) -> str:
         else:
             print(f"[Groq] ❌ {resp.text[:100]}")
             return _fallback()
-
     except requests.exceptions.Timeout:
         return "Slow connection 😅 Try again?"
     except requests.exceptions.ConnectionError:
@@ -91,4 +91,4 @@ if __name__ == "__main__":
     for msg in tests:
         print(f"\nUser: {msg}")
         print(f"Bot:  {get_groq_response(msg)}")
-        print("-"*50)
+        print("-" * 50)
