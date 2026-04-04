@@ -99,8 +99,15 @@ def reload_models() -> dict:
 MAX_LEN = 100
 
 def _tokenize_and_pad(text: str, tokenizer) -> np.ndarray:
-    seq = tokenizer.texts_to_sequences([text])
-    s   = seq[0] if seq else []
+    if isinstance(tokenizer, dict):
+        word_index = tokenizer["word_index"]
+        num_words  = tokenizer.get("num_words", 5000)
+        words = text.lower().split()
+        s = [word_index[w] for w in words if w in word_index and word_index[w] < num_words]
+    else:
+        seq = tokenizer.texts_to_sequences([text])
+        s   = seq[0] if seq else []
+
     if len(s) >= MAX_LEN:
         padded = s[:MAX_LEN]
     else:
