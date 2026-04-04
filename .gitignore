@@ -10,17 +10,26 @@ venv/
 .env
 *.env
 
-# Large model files — commit only .onnx, never .keras or .pkl
+# Large model files — commit only .onnx and tokenizers, never .keras
 model/*.keras
-model/*.pkl
 model/*.pt
 model/*.h5
 model/model_report.txt
 model/version.txt
 model/*_saved/
+model/sentiment_model.pkl
+model/stress_model.pkl
+model/tfidf_vectorizer.pkl
+model/stress_vectorizer.pkl
+model/sentiment_model_meta.pkl
+model/stress_model_meta.pkl
 
-# Keep these (ONNX models + training data)
+# Keep these (ONNX models + tokenizers + training data)
 !model/*.onnx
+!model/rnn_tokenizer.pkl
+!model/rnn_tokenizer_stress.pkl
+!model/sentiment_model_rnn_le.pkl
+!model/stress_model_rnn_le.pkl
 !model/dataset*.csv
 
 # OS
