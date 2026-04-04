@@ -6,3 +6,4 @@ onnxruntime>=1.17.0
 gunicorn==21.2.0
 python-dotenv
 groq
+requests
