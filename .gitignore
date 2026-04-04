@@ -1,15 +1,32 @@
-# Environment variables
-.env
-
-# Virtual environment
-.venv/
-
-# Python cache
+# Python
 __pycache__/
 *.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
 
-# VS Code settings
+# Environment
+.env
+*.env
+
+# Large model files — commit only .onnx, never .keras or .pkl
+model/*.keras
+model/*.pkl
+model/*.pt
+model/*.h5
+model/model_report.txt
+model/version.txt
+model/*_saved/
+
+# Keep these (ONNX models + training data)
+!model/*.onnx
+!model/dataset*.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
 .vscode/
-
-# Model files (usually large)
-model/
+.idea/
