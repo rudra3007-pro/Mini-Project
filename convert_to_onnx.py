@@ -13,8 +13,8 @@ CONVERSIONS = [
 ]
 
 for keras_fname, onnx_fname in CONVERSIONS:
-    keras_path    = os.path.join(MODEL_DIR, keras_fname)
-    onnx_path     = os.path.join(MODEL_DIR, onnx_fname)
+    keras_path      = os.path.join(MODEL_DIR, keras_fname)
+    onnx_path       = os.path.join(MODEL_DIR, onnx_fname)
     saved_model_dir = os.path.join(MODEL_DIR, keras_fname.replace(".keras", "_saved"))
 
     if not os.path.exists(keras_path):
@@ -31,11 +31,20 @@ for keras_fname, onnx_fname in CONVERSIONS:
         model = keras.saving.load_model(keras_path)
         print(f"    ✅ Loaded model with keras {keras.__version__}")
 
-        # Step 2: Export as SavedModel (tf2onnx understands this format)
+        # Step 2: Export as SavedModel with explicit float32 input signature
         if os.path.exists(saved_model_dir):
             shutil.rmtree(saved_model_dir)
 
-        tf.saved_model.save(model, saved_model_dir)
+        @tf.function(input_signature=[
+            tf.TensorSpec(shape=[None, 100], dtype=tf.float32, name="input")
+        ])
+        def serve(x):
+            return model(x, training=False)
+
+        tf.saved_model.save(
+            model, saved_model_dir,
+            signatures={"serving_default": serve}
+        )
         print(f"    ✅ Exported to SavedModel: {saved_model_dir}")
 
         # Step 3: Convert SavedModel → ONNX using tf2onnx CLI
@@ -44,7 +53,7 @@ for keras_fname, onnx_fname in CONVERSIONS:
             "--saved-model", saved_model_dir,
             "--output", onnx_path,
             "--opset", "13",
-            "--inputs-as-float",   # force float32 input (not int32)
+            "--signature_def", "serving_default",
         ], capture_output=True, text=True)
 
         print(result.stdout)
