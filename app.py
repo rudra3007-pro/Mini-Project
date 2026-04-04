@@ -119,7 +119,7 @@ def _tokenize_and_pad(text: str, tokenizer) -> np.ndarray:
         padded = s[:MAX_LEN]
     else:
         padded = [0] * (MAX_LEN - len(s)) + s   # pre-pad with zeros
-    return np.array([padded], dtype=np.int32)
+    return np.array([padded], dtype=np.float32)
 
 
 def _run_onnx(session, input_array: np.ndarray) -> int:

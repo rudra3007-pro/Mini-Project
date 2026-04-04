@@ -44,6 +44,7 @@ for keras_fname, onnx_fname in CONVERSIONS:
             "--saved-model", saved_model_dir,
             "--output", onnx_path,
             "--opset", "13",
+            "--inputs-as-float",   # force float32 input (not int32)
         ], capture_output=True, text=True)
 
         print(result.stdout)
