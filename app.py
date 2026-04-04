@@ -4,15 +4,6 @@ app.py — Main Flask Application
 Sentiment  → RNN (LSTM via ONNX runtime)  ← no TensorFlow, ~80 MB
 Stress     → RNN (LSTM via ONNX runtime)
 Response   → Groq LLaMA 3.1
-
-Memory usage:
-  Before (TensorFlow) : ~700 MB  → OOM on Render free tier
-  After  (ONNX)       : ~120 MB  → comfortably fits in 512 MB
-
-Convert your .keras models once locally:
-  pip install tf2onnx onnx tensorflow
-  python convert_to_onnx.py
-Then commit the .onnx files and remove tensorflow from requirements.txt
 """
 
 import os, pickle, sys, threading
@@ -35,18 +26,15 @@ except ImportError as e:
 app       = Flask(__name__)
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 
-# ── Thread-safe lazy model loading ────────────────────────────────────────────
-
 _models      = None
 _models_lock = threading.Lock()
 
 def load_models() -> dict:
     m = {}
 
-    # ── ONNX Runtime (replaces TensorFlow entirely) ───────────────────────────
+    # ── ONNX Runtime ───────────────────────────────────────────────────────────
     try:
         import onnxruntime as ort
-
         onnx_files = {
             "sentiment_rnn": "sentiment_model_rnn.onnx",
             "stress_rnn":    "stress_model_rnn.onnx",
@@ -54,18 +42,14 @@ def load_models() -> dict:
         for key, fname in onnx_files.items():
             path = os.path.join(MODEL_DIR, fname)
             if os.path.exists(path):
-                m[key] = ort.InferenceSession(
-                    path,
-                    providers=["CPUExecutionProvider"]
-                )
+                m[key] = ort.InferenceSession(path, providers=["CPUExecutionProvider"])
                 print(f"✅  Loaded ONNX model: {fname}")
             else:
-                print(f"⚠️  ONNX model missing: {fname}  →  run convert_to_onnx.py locally")
-
+                print(f"⚠️  ONNX model missing: {fname}")
     except ImportError:
         print("⚠️  onnxruntime not installed. RNN models disabled.")
 
-    # ── Tokenizers + label encoders + ML fallback (all tiny .pkl files) ───────
+    # ── Tokenizers + label encoders ────────────────────────────────────────────
     pkl_files = {
         "tokenizer_sent":   "rnn_tokenizer.pkl",
         "label_le_sent":    "sentiment_model_rnn_le.pkl",
@@ -84,8 +68,11 @@ def load_models() -> dict:
             try:
                 with open(path, "rb") as f:
                     m[key] = pickle.load(f)
+                print(f"✅  Loaded: {fname}")
             except Exception as e:
-                print(f"⚠️  Failed to load {fname}: {e}")
+                print(f"❌  Failed to load {fname}: {e}")
+        else:
+            print(f"⚠️  Missing: {fname}")
 
     if not m:
         print("⚠️  No models loaded — rule-based fallback only.")
@@ -109,21 +96,19 @@ def reload_models() -> dict:
 
 # ── ONNX inference helpers ────────────────────────────────────────────────────
 
-MAX_LEN = 100   # must match what you used during training
+MAX_LEN = 100
 
 def _tokenize_and_pad(text: str, tokenizer) -> np.ndarray:
-    """Convert text → padded int32 array ready for ONNX input."""
     seq = tokenizer.texts_to_sequences([text])
     s   = seq[0] if seq else []
     if len(s) >= MAX_LEN:
         padded = s[:MAX_LEN]
     else:
-        padded = [0] * (MAX_LEN - len(s)) + s   # pre-pad with zeros
+        padded = [0] * (MAX_LEN - len(s)) + s
     return np.array([padded], dtype=np.float32)
 
 
 def _run_onnx(session, input_array: np.ndarray) -> int:
-    """Run ONNX session and return argmax class index."""
     input_name = session.get_inputs()[0].name
     output     = session.run(None, {input_name: input_array})
     return int(np.argmax(output[0], axis=1)[0])
@@ -135,7 +120,6 @@ def predict_sentiment(text: str) -> str:
         return "neutral"
     m = get_models()
 
-    # RNN path via ONNX
     if "sentiment_rnn" in m and "tokenizer_sent" in m and "label_le_sent" in m:
         try:
             arr = _tokenize_and_pad(text, m["tokenizer_sent"])
@@ -144,7 +128,6 @@ def predict_sentiment(text: str) -> str:
         except Exception as e:
             print(f"[ONNX Sentiment] Error: {e} — falling back to ML")
 
-    # ML fallback
     if "sentiment_clf" in m and "sentiment_vec" in m:
         try:
             vec = m["sentiment_vec"].transform([text])
@@ -161,7 +144,6 @@ def predict_stress(text: str, rule_stress: str) -> str:
     m         = get_models()
     ml_stress = rule_stress
 
-    # RNN path via ONNX
     if "stress_rnn" in m and "tokenizer_stress" in m and "label_le_stress" in m:
         try:
             arr       = _tokenize_and_pad(text, m["tokenizer_stress"])
@@ -177,7 +159,6 @@ def predict_stress(text: str, rule_stress: str) -> str:
         except Exception as e:
             print(f"[ML Stress] Error: {e}")
 
-    # Rule-based HIGH always wins (safety-first)
     if rule_stress == "high"   or ml_stress == "high":   return "high"
     if rule_stress == "medium" or ml_stress == "medium": return "medium"
     return "low"
@@ -270,7 +251,6 @@ def report():
 
 @app.route("/health")
 def health():
-    """Cron-job keep-alive — also warms model cache on cold start."""
     m            = get_models()
     sentiment_ok = "sentiment_rnn" in m or "sentiment_clf" in m
     stress_ok    = "stress_rnn"    in m or "stress_clf"    in m
@@ -284,30 +264,21 @@ def health():
                          "ml"   if "stress_clf"    in m else "missing",
         },
     }), 200
+
+
 @app.route("/debug")
 def debug():
-    import numpy as np
-    m = get_models()
+    m       = get_models()
     results = {}
-    
-    # Check what models are loaded
-    results["models_loaded"] = list(m.keys())
-    
-    # Check ONNX input type
+    results["models_loaded"]    = list(m.keys())
     if "sentiment_rnn" in m:
         sess = m["sentiment_rnn"]
         results["onnx_input_name"] = sess.get_inputs()[0].name
         results["onnx_input_type"] = sess.get_inputs()[0].type
-    
-    # Check tokenizer
     if "tokenizer_sent" in m:
         tok = m["tokenizer_sent"]
-        seq = tok.texts_to_sequences(["I am happy"])
-        results["test_sequence"] = seq
-    
-    # Raw prediction
+        results["test_sequence"] = tok.texts_to_sequences(["I am happy"])
     results["sentiment"] = predict_sentiment("I am so happy today")
-    
     return jsonify(results)
 
 
