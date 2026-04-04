@@ -7,3 +7,4 @@ gunicorn==21.2.0
 python-dotenv
 groq
 requests
+keras==3.5.0
