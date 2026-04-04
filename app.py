@@ -284,51 +284,31 @@ def health():
                          "ml"   if "stress_clf"    in m else "missing",
         },
     }), 200
-
 @app.route("/debug")
 def debug():
     import numpy as np
     m = get_models()
+    results = {}
     
-    text = "I am so happy today, feeling really great!"
+    # Check what models are loaded
+    results["models_loaded"] = list(m.keys())
+    
+    # Check ONNX input type
+    if "sentiment_rnn" in m:
+        sess = m["sentiment_rnn"]
+        results["onnx_input_name"] = sess.get_inputs()[0].name
+        results["onnx_input_type"] = sess.get_inputs()[0].type
     
     # Check tokenizer
-    tok = m.get("tokenizer_sent")
-    seq = tok.texts_to_sequences([text]) if tok else "NO TOKENIZER"
+    if "tokenizer_sent" in m:
+        tok = m["tokenizer_sent"]
+        seq = tok.texts_to_sequences(["I am happy"])
+        results["test_sequence"] = seq
     
-    # Check input to ONNX
-    if tok:
-        s = seq[0] if seq else []
-        padded = [0] * (MAX_LEN - len(s)) + s if len(s) < MAX_LEN else s[:MAX_LEN]
-        arr = np.array([padded], dtype=np.float32)
-        arr_dtype = str(arr.dtype)
-        arr_sample = arr[0][:10].tolist()
-    else:
-        arr_dtype = "N/A"
-        arr_sample = "N/A"
-
-    # Run ONNX
-    sess = m.get("sentiment_rnn")
-    if sess:
-        inp_name = sess.get_inputs()[0].name
-        inp_type = sess.get_inputs()[0].type
-        output = sess.run(None, {inp_name: arr})
-        probs = output[0][0].tolist()
-    else:
-        inp_name = "NO SESSION"
-        inp_type = "N/A"
-        probs = "N/A"
-
-    return jsonify({
-        "text": text,
-        "sequence": seq,
-        "arr_dtype": arr_dtype,
-        "arr_sample": arr_sample,
-        "onnx_input_name": inp_name,
-        "onnx_input_type": inp_type,
-        "probs": probs,
-        "sentiment": predict_sentiment(text),
-    })
+    # Raw prediction
+    results["sentiment"] = predict_sentiment("I am so happy today")
+    
+    return jsonify(results)
 
 
 if __name__ == "__main__":
