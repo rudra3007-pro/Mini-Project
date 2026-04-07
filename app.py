@@ -4,11 +4,17 @@ app.py — Main Flask Application
 Sentiment  → RNN (LSTM via ONNX runtime)  ← no TensorFlow, ~80 MB
 Stress     → RNN (LSTM via ONNX runtime)
 Response   → Groq LLaMA 3.1
+Auth       → Google OAuth 2.0 (Authlib)
 """
 
 import os, pickle, sys, threading
+from functools import wraps
+
 import numpy as np
-from flask import Flask, render_template, request, jsonify
+from dotenv import load_dotenv
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+
+load_dotenv()
 
 BASE_DIR  = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE_DIR)
@@ -23,16 +29,35 @@ except ImportError as e:
         "Make sure chatbot/ package exists and dependencies are installed."
     ) from e
 
+from auth import auth_bp, init_oauth
+
 app       = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-change-me")
+
+# ── Register OAuth + Blueprint ────────────────────────────────────────────────
+init_oauth(app)
+app.register_blueprint(auth_bp)
+
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 
 _models      = None
 _models_lock = threading.Lock()
 
+# ── Auth guard ────────────────────────────────────────────────────────────────
+
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get("user"):
+            return render_template("login.html")
+        return f(*args, **kwargs)
+    return decorated
+
+# ── Model loading ─────────────────────────────────────────────────────────────
+
 def load_models() -> dict:
     m = {}
 
-    # ── ONNX Runtime ───────────────────────────────────────────────────────────
     try:
         import onnxruntime as ort
         onnx_files = {
@@ -49,7 +74,6 @@ def load_models() -> dict:
     except ImportError:
         print("⚠️  onnxruntime not installed. RNN models disabled.")
 
-    # ── Tokenizers + label encoders ────────────────────────────────────────────
     pkl_files = {
         "tokenizer_sent":   "rnn_tokenizer.pkl",
         "label_le_sent":    "sentiment_model_rnn_le.pkl",
@@ -185,11 +209,13 @@ def get_model_info() -> dict:
 # ── Routes ────────────────────────────────────────────────────────────────────
 
 @app.route("/")
+@login_required
 def index():
-    return render_template("index.html", model_info=get_model_info())
+    return render_template("index.html", model_info=get_model_info(), user=session["user"])
 
 
 @app.route("/chat", methods=["POST"])
+@login_required
 def chat():
     data     = request.get_json(silent=True) or {}
     user_msg = data.get("message", "").strip()
@@ -225,6 +251,7 @@ def chat():
 
 
 @app.route("/train")
+@login_required
 def train():
     import subprocess
     script = os.path.join(MODEL_DIR, "train_model.py")
@@ -243,6 +270,7 @@ def train():
 
 
 @app.route("/report")
+@login_required
 def report():
     path = os.path.join(MODEL_DIR, "model_report.txt")
     try:
@@ -274,10 +302,12 @@ def health():
 
 
 @app.route("/debug")
+@login_required
 def debug():
     m       = get_models()
     results = {}
     results["models_loaded"]    = list(m.keys())
+    results["current_user"]     = session.get("user", {}).get("email", "unknown")
     if "sentiment_rnn" in m:
         sess = m["sentiment_rnn"]
         results["onnx_input_name"] = sess.get_inputs()[0].name

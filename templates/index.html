@@ -7,6 +7,71 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  <style>
+    /* ── Google OAuth user strip ── */
+    .user-strip {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      margin-top: auto;
+      padding: .85rem 1rem;
+      background: rgba(255,255,255,.05);
+      border-radius: .85rem;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .user-strip img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.2);
+      flex-shrink: 0;
+    }
+    .user-strip-info {
+      flex: 1;
+      overflow: hidden;
+    }
+    .user-strip-name {
+      font-size: .8rem;
+      font-weight: 600;
+      color: #e8edf5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .user-strip-email {
+      font-size: .68rem;
+      color: rgba(255,255,255,.45);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .logout-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: .5rem;
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      font-size: .85rem;
+      flex-shrink: 0;
+      transition: background .2s, color .2s;
+    }
+    .logout-btn:hover {
+      background: rgba(255,80,80,.2);
+      color: #ff6b6b;
+    }
+    /* make sidebar a flex column so user-strip sticks to bottom */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar .clear-btn {
+      margin-top: .75rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -59,6 +124,18 @@
     </div>
 
     <button class="clear-btn" id="clear-btn">🗑 Clear Chat</button>
+
+    <!-- ── Google User Strip ── -->
+    {% if user %}
+    <div class="user-strip">
+      <img src="{{ user.picture }}" alt="avatar" referrerpolicy="no-referrer"/>
+      <div class="user-strip-info">
+        <div class="user-strip-name">{{ user.name }}</div>
+        <div class="user-strip-email">{{ user.email }}</div>
+      </div>
+      <a href="/auth/logout" class="logout-btn" title="Sign out">⏏</a>
+    </div>
+    {% endif %}
   </aside>
 
   <!-- ── Main Chat ─────────────────────────────────────────────────────── -->
@@ -76,7 +153,11 @@
       <div class="msg bot-msg">
         <div class="msg-avatar">🧠</div>
         <div class="msg-bubble">
+          {% if user %}
+          <p>Hello, <strong>{{ user.name.split()[0] }}</strong>! 👋 I'm <strong>MindEase</strong>, your personal mental wellness companion.</p>
+          {% else %}
           <p>Hello! 👋 I'm <strong>MindEase</strong>, your personal mental wellness companion.</p>
+          {% endif %}
           <p style="margin-top:.5rem;">Feel free to share how you're feeling today — about college, studies, relationships, or anything on your mind. I'm here to listen and support you. 💙</p>
           <p style="margin-top:.5rem;font-size:.8rem;opacity:.7;">⚠️ I am not a medical professional. For clinical support please contact a counselor.</p>
         </div>
