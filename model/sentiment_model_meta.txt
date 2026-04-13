@@ -1,6 +1,0 @@
-Best Model: Naive Bayes
-CV Accuracy: 98.75%
-Logistic Regression: 97.79%
-Naive Bayes: 98.75%
-SVM: 97.96%
-Random Forest: 97.69%

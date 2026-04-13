@@ -3,160 +3,828 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MindEase — Mental Wellness Chatbot</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+  <title>MindCare — Your Wellness Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
   <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+    :root {
+      --sand-50:  #fdf9f5;
+      --sand-100: #f8f1e8;
+      --sand-200: #f0e4d0;
+      --sand-300: #e5d0b8;
+      --sand-400: #c8a882;
+      --sand-500: #a07850;
+      --terra-400: #c8703a;
+      --terra-500: #a8521e;
+      --terra-600: #8b3e12;
+      --teal-500:  #3d8c7e;
+      --teal-lt:   #d4eeea;
+      --rose-500:  #c04040;
+      --rose-lt:   #fce8e8;
+      --sage-500:  #5a8060;
+      --sage-lt:   #ddeee0;
+      --amber-500: #b87820;
+      --amber-lt:  #fdf0d4;
+      --ink-900: #1e1410;
+      --ink-700: #4a3020;
+      --ink-500: #7a5840;
+      --ink-300: #b09080;
+      --bg-root:   #f5ede2;
+      --bg-panel:  #fdf9f5;
+      --bg-glass:  rgba(253,249,245,0.82);
+      --bg-card:   #ffffff;
+      --br-soft:   rgba(180,140,100,0.15);
+      --br-mid:    rgba(160,120,80,0.25);
+      --sh-xs: 0 1px 3px rgba(120,70,20,0.06);
+      --sh-sm: 0 2px 8px rgba(120,70,20,0.08), 0 1px 3px rgba(120,70,20,0.05);
+      --sh-md: 0 4px 20px rgba(120,70,20,0.10), 0 2px 6px rgba(120,70,20,0.06);
+      --sh-lg: 0 8px 32px rgba(120,70,20,0.12), 0 3px 10px rgba(120,70,20,0.07);
+      --sh-glow: 0 0 0 3px rgba(168,82,30,0.14), 0 4px 20px rgba(168,82,30,0.15);
+      --sidebar-w: 270px;
+      --chat-max:  820px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --radius-pill: 999px;
+    }
+
+    html, body { height: 100%; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-root);
+      color: var(--ink-900);
+      display: flex;
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: linear-gradient(168deg, #fdf5ec 0%, #f5e8d4 55%, #edddc4 100%);
+      border-right: 1px solid var(--br-soft);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      gap: 18px;
+      overflow-y: auto;
+      position: relative;
+    }
+    .sidebar::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a07850' fill-opacity='0.03'%3E%3Ccircle cx='20' cy='20' r='10'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--sand-300); border-radius: 4px; }
+
+    /* Logo */
+    .logo { display: flex; align-items: center; gap: 11px; position: relative; }
+    .logo-icon {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--terra-400), var(--terra-600));
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(168,82,30,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .logo-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px; font-weight: 600;
+      color: var(--ink-900); line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .logo-text p { font-size: 11px; color: var(--ink-500); margin-top: 2px; font-weight: 400; }
+
+    /* Theme toggle */
+    .theme-toggle {
+      margin-left: auto; width: 50px; height: 26px;
+      background: var(--sand-200);
+      border: 1.5px solid var(--br-mid);
+      border-radius: var(--radius-pill);
+      cursor: pointer; position: relative;
+      flex-shrink: 0; transition: background 0.3s, border-color 0.3s;
+    }
+    body.dark .theme-toggle { background: #2a1f16; border-color: #5a3820; }
+    .toggle-thumb {
+      width: 20px; height: 20px;
+      background: white;
+      border-radius: 50%;
+      position: absolute; left: 2px; top: 50%; transform: translateY(-50%);
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--sh-sm);
+    }
+    body.dark .toggle-thumb { transform: translateY(-50%) translateX(24px); background: #d4845a; }
+    .ti-sun { opacity: 1; transition: opacity 0.2s; position: absolute; }
+    .ti-moon { opacity: 0; transition: opacity 0.2s; position: absolute; }
+    body.dark .ti-sun { opacity: 0; }
+    body.dark .ti-moon { opacity: 1; }
+
+    /* Divider */
+    .divider { height: 1px; background: var(--br-soft); }
+
+    /* Section label */
+    .slabel {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ink-500);
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: -10px;
+    }
+
+    /* Analysis card */
+    .analysis-card {
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--br-soft);
+      border-radius: var(--radius-md);
+      padding: 13px 14px;
+      display: flex; flex-direction: column; gap: 10px;
+      box-shadow: var(--sh-sm);
+    }
+    .arow { display: flex; align-items: center; justify-content: space-between; }
+    .arow label { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ink-700); font-weight: 500; }
+    .badge {
+      font-size: 10.5px; font-weight: 700; padding: 3px 10px;
+      border-radius: var(--radius-pill); display: flex; align-items: center; gap: 4px;
+      letter-spacing: 0.02em;
+    }
+    .badge::before { content: '●'; font-size: 6px; }
+    .badge.positive { background: var(--sage-lt); color: var(--sage-500); }
+    .badge.negative { background: var(--rose-lt); color: var(--rose-500); }
+    .badge.neutral  { background: var(--amber-lt); color: var(--amber-500); }
+    .badge.medium   { background: var(--amber-lt); color: var(--amber-500); }
+    .badge.high     { background: var(--rose-lt); color: var(--rose-500); }
+    .badge.low      { background: var(--sage-lt); color: var(--sage-500); }
+    .last-up {
+      font-size: 11px; color: var(--ink-300);
+      display: flex; align-items: center; gap: 5px;
+      padding-top: 8px; border-top: 1px solid var(--br-soft);
+    }
+
+    /* Model info box */
+    .model-box {
+      background: var(--bg-glass);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--br-soft);
+      border-radius: var(--radius-md); padding: 12px 14px;
+      box-shadow: var(--sh-xs);
+    }
+    .mrow { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+    .mrow label { font-size: 12px; color: var(--ink-700); font-weight: 500; margin-right: auto; display: flex; align-items: center; gap: 5px; }
+    .mbadge { background: rgba(168,82,30,0.1); color: var(--terra-500); font-size: 10.5px; font-weight: 700; padding: 2px 9px; border-radius: var(--radius-pill); }
+    .abadge { background: var(--sage-lt); color: var(--sage-500); font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: var(--radius-pill); }
+    .mdesc { font-size: 11.5px; color: var(--ink-500); line-height: 1.55; margin-top: 4px; }
+    .mlink { font-size: 11.5px; color: var(--terra-400); margin-top: 7px; display: inline-block; cursor: pointer; font-weight: 500; }
+    .mlink:hover { text-decoration: underline; }
+
+    /* Helplines */
+    .helplines { display: flex; flex-direction: column; gap: 7px; }
+    .hline {
+      display: flex; align-items: center; gap: 11px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--br-soft);
+      border-radius: var(--radius-md);
+      padding: 9px 11px;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    }
+    .hline:hover { transform: translateY(-1px); box-shadow: var(--sh-md); border-color: var(--br-mid); }
+    .hicon {
+      width: 32px; height: 32px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .hicon.warm  { background: linear-gradient(135deg, #fde8d0, #f5d0b0); }
+    .hicon.teal  { background: linear-gradient(135deg, #d0eeea, #b4e0d8); }
+    .hicon.red   { background: linear-gradient(135deg, #fde0dc, #f8c8c4); }
+    .hline h4 { font-size: 12.5px; font-weight: 600; color: var(--ink-900); line-height: 1.1; }
+    .hline p  { font-size: 11px; color: var(--terra-500); margin-top: 2px; font-weight: 600; }
+    .hline p.em { color: var(--rose-500); }
+
+    /* Motivation */
+    .motiv {
+      background: linear-gradient(135deg, #fdf0e4, #f8e4cc);
+      border: 1px solid rgba(168,82,30,0.18);
+      border-left: 3px solid var(--terra-400);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 13px;
+      color: var(--terra-600); line-height: 1.65;
+    }
+
+    /* Clear btn */
+    .clear-btn {
+      background: var(--rose-lt); border: 1px solid rgba(192,64,64,0.2);
+      border-radius: var(--radius-md); color: var(--rose-500);
+      font-size: 12.5px; font-weight: 600; padding: 9px 14px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+    }
+    .clear-btn:hover { background: #f8d4d0; transform: translateY(-1px); box-shadow: var(--sh-sm); }
+
     /* ── Google OAuth user strip ── */
     .user-strip {
       display: flex;
       align-items: center;
       gap: .65rem;
-      margin-top: auto;
       padding: .85rem 1rem;
-      background: rgba(255,255,255,.05);
-      border-radius: .85rem;
-      border: 1px solid rgba(255,255,255,.08);
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--br-soft);
+      box-shadow: var(--sh-xs);
     }
     .user-strip img {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       border-radius: 50%;
-      border: 2px solid rgba(255,255,255,.2);
+      border: 2px solid var(--br-mid);
       flex-shrink: 0;
     }
-    .user-strip-info {
-      flex: 1;
-      overflow: hidden;
-    }
+    .user-strip-info { flex: 1; overflow: hidden; }
     .user-strip-name {
-      font-size: .8rem;
-      font-weight: 600;
-      color: #e8edf5;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: .8rem; font-weight: 600;
+      color: var(--ink-900);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .user-strip-email {
-      font-size: .68rem;
-      color: rgba(255,255,255,.45);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: .68rem; color: var(--ink-300);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .logout-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px;
       border-radius: .5rem;
-      background: rgba(255,255,255,.07);
-      color: rgba(255,255,255,.5);
-      text-decoration: none;
-      font-size: .85rem;
-      flex-shrink: 0;
+      background: rgba(120,70,20,0.06);
+      color: var(--ink-300);
+      text-decoration: none; font-size: .85rem; flex-shrink: 0;
       transition: background .2s, color .2s;
     }
-    .logout-btn:hover {
-      background: rgba(255,80,80,.2);
-      color: #ff6b6b;
+    .logout-btn:hover { background: var(--rose-lt); color: var(--rose-500); }
+
+    /* ── DARK MODE ── */
+    body.dark {
+      --bg-root:   #160e08;
+      --bg-panel:  #1e1510;
+      --bg-glass:  rgba(35,25,15,0.85);
+      --bg-card:   #2a1e14;
+      --br-soft:   rgba(120,80,40,0.2);
+      --br-mid:    rgba(150,100,60,0.35);
+      --ink-900: #f0e4d8;
+      --ink-700: #c8a888;
+      --ink-500: #907058;
+      --ink-300: #604838;
+      --sand-200: #2a1e14;
+      --sand-300: #3a2818;
+      --terra-400: #e0906a;
+      --terra-500: #c87050;
+      --terra-600: #f0a880;
+      --teal-500: #60b0a0; --teal-lt: #102824;
+      --rose-500: #e07070; --rose-lt: #280e0e;
+      --sage-500: #70a878; --sage-lt: #0e2010;
+      --amber-500: #d09040; --amber-lt: #1e1404;
+      --sh-xs: 0 1px 3px rgba(0,0,0,0.3);
+      --sh-sm: 0 2px 8px rgba(0,0,0,0.35), 0 1px 3px rgba(0,0,0,0.2);
+      --sh-md: 0 4px 20px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.25);
+      --sh-lg: 0 8px 32px rgba(0,0,0,0.5), 0 3px 10px rgba(0,0,0,0.3);
+      --sh-glow: 0 0 0 3px rgba(200,112,80,0.2), 0 4px 20px rgba(200,112,80,0.18);
     }
-    /* make sidebar a flex column so user-strip sticks to bottom */
-    .sidebar {
+    body.dark .sidebar { background: linear-gradient(168deg, #211510 0%, #1a1008 55%, #150e06 100%); }
+    body.dark .hicon.warm { background: linear-gradient(135deg, #3a2010, #2a1608); }
+    body.dark .hicon.teal { background: linear-gradient(135deg, #0e2824, #0a1e1c); }
+    body.dark .hicon.red  { background: linear-gradient(135deg, #2a1010, #1e0808); }
+    body.dark .motiv { background: linear-gradient(135deg, #2a1a0e, #221408); border-color: rgba(200,112,80,0.25); border-left-color: var(--terra-400); }
+    body.dark .msg.bot-msg .msg-bubble { background: #2a1e14; }
+    body.dark .typing-bub { background: #2a1e14; }
+    body.dark .input-pill { background: #2a1e14; }
+    body.dark .chip { background: #2a1e14; }
+    body.dark .crisis-card { background: linear-gradient(135deg, #2a1010, #220c0c); color: #f0a8a8; }
+
+    /* Transitions */
+    body, .sidebar, .topbar, .input-wrap, .bubble, .hline,
+    .analysis-card, .model-box, .typing-bub,
+    .input-pill, .chip, .icoBtn {
+      transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+
+    /* ── MAIN ── */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-root); }
+
+    /* Topbar */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; height: 64px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--br-soft);
+      flex-shrink: 0;
+      box-shadow: 0 1px 0 var(--br-soft), var(--sh-xs);
+      position: relative; z-index: 10;
+    }
+    .tbar-left { display: flex; align-items: center; gap: 13px; }
+    .bot-av {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--terra-400), var(--terra-600));
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      position: relative;
+      box-shadow: 0 3px 12px rgba(168,82,30,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .online-dot {
+      width: 10px; height: 10px; background: #48c878;
+      border-radius: 50%; border: 2.5px solid var(--bg-panel);
+      position: absolute; bottom: 0; right: 0;
+      box-shadow: 0 0 6px rgba(72,200,120,0.5);
+    }
+    .bot-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; font-weight: 600;
+      color: var(--ink-900); display: flex; align-items: center; gap: 9px;
+    }
+    .ai-tag {
+      background: linear-gradient(135deg, rgba(168,82,30,0.12), rgba(168,82,30,0.08));
+      border: 1px solid rgba(168,82,30,0.2);
+      color: var(--terra-500); font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em;
+      padding: 2px 8px; border-radius: var(--radius-pill); text-transform: uppercase;
+    }
+    .bot-info p { font-size: 11.5px; color: var(--ink-300); margin-top: 1px; display: flex; align-items: center; gap: 6px; }
+    .online-txt { color: #38a858; font-weight: 600; }
+    .tbar-right { display: flex; align-items: center; gap: 8px; }
+    .icoBtn {
+      width: 36px; height: 36px;
+      background: var(--bg-glass); backdrop-filter: blur(8px);
+      border: 1px solid var(--br-soft);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--ink-500);
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s, color 0.15s;
+    }
+    .icoBtn:hover { background: var(--sand-100); transform: translateY(-1px); box-shadow: var(--sh-sm); color: var(--ink-700); }
+    .header-sub { font-size: 12px; color: var(--ink-300); }
+
+    /* ── CHAT AREA ── */
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px;
       display: flex;
       flex-direction: column;
+      gap: 14px;
     }
-    .sidebar .clear-btn {
-      margin-top: .75rem;
+    .messages::-webkit-scrollbar { width: 5px; }
+    .messages::-webkit-scrollbar-track { background: transparent; }
+    .messages::-webkit-scrollbar-thumb { background: var(--sand-300); border-radius: 4px; }
+
+    /* Date divider */
+    .date-div {
+      display: flex; align-items: center; gap: 14px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 12px; color: var(--ink-300);
+      margin-bottom: 4px;
     }
+    .date-div::before, .date-div::after { content: ''; flex: 1; height: 1px; background: var(--br-soft); }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex; align-items: center; gap: 10px;
+      padding: 6px 28px 10px;
+      flex-shrink: 0;
+    }
+    .typing-indicator.hidden { display: none; }
+    .typing-bub {
+      background: var(--bg-card);
+      border: 1px solid var(--br-soft);
+      border-radius: 16px; border-bottom-left-radius: 4px;
+      padding: 11px 16px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--ink-500);
+      box-shadow: var(--sh-md);
+    }
+    .t-dots { display: flex; gap: 5px; align-items: center; }
+    .t-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--terra-400); animation: tdot 1.4s infinite;
+    }
+    .t-dot:nth-child(2) { animation-delay: 0.22s; }
+    .t-dot:nth-child(3) { animation-delay: 0.44s; }
+    @keyframes tdot {
+      0%, 70%, 100% { transform: scale(0.7); opacity: 0.4; }
+      35%           { transform: scale(1);   opacity: 1; }
+    }
+
+    /* Crisis card */
+    .crisis-card {
+      background: linear-gradient(135deg, #fff5f5, #fce8e8);
+      border: 1px solid rgba(192,64,64,0.2);
+      border-left: 4px solid var(--rose-500);
+      border-radius: var(--radius-md);
+      border-top-left-radius: 4px;
+      padding: 13px 15px; margin-top: 12px;
+      font-size: 13px; color: #7a2020; line-height: 1.65;
+      box-shadow: 0 2px 10px rgba(192,64,64,0.08);
+    }
+    .crisis-card strong {
+      display: flex; align-items: center; gap: 7px;
+      margin-bottom: 5px; color: var(--rose-500); font-size: 13.5px;
+    }
+
+    /* ── MESSAGES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Each .msg is a full-width flex row */
+    .msg {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      animation: fadeUp 0.25s ease both;
+    }
+
+    /* Bot row: avatar on left, bubble on left */
+    .msg.bot-msg { flex-direction: row; }
+
+    /* User row: no avatar, bubble floats right */
+    .msg.user-msg { flex-direction: row-reverse; }
+
+    /* Avatar — only visible on bot messages */
+    .msg-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--terra-400), var(--terra-600));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      box-shadow: 0 2px 8px rgba(168,82,30,0.25);
+    }
+    .msg.user-msg .msg-avatar { display: none; }
+
+    /* Bubble wrapper — caps width */
+    .msg-body {
+      display: flex; flex-direction: column; gap: 4px;
+      max-width: 68%;
+    }
+
+    /* Bubbles */
+    .msg-bubble {
+      padding: 12px 16px;
+      border-radius: 16px;
+      line-height: 1.65; font-size: 14px;
+      word-break: break-word;
+    }
+
+    /* Bot bubble */
+    .msg.bot-msg .msg-bubble {
+      background: var(--bg-card);
+      color: var(--ink-900);
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--br-soft);
+      box-shadow: var(--sh-md);
+    }
+
+    /* User bubble */
+    .msg.user-msg .msg-bubble {
+      background: linear-gradient(135deg, #c87040 0%, #a05020 50%, #8b3e12 100%);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 16px rgba(140,62,18,0.25),
+                  inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    /* Timestamp */
+    .msg-time {
+      font-size: 10.5px; color: var(--ink-300);
+      display: flex; align-items: center; gap: 4px;
+      padding: 0 4px;
+    }
+    .msg.user-msg .msg-time { justify-content: flex-end; }
+    .check { color: var(--terra-400); }
+
+    /* Crisis card */
+    .crisis-card {
+      background: linear-gradient(135deg, #fff5f5, #fce8e8);
+      border: 1px solid rgba(192,64,64,0.2);
+      border-left: 4px solid var(--rose-500);
+      border-radius: var(--radius-md);
+      border-top-left-radius: 4px;
+      padding: 13px 15px; margin-top: 12px;
+      font-size: 13px; color: #7a2020; line-height: 1.65;
+      box-shadow: 0 2px 10px rgba(192,64,64,0.08);
+    }
+    .crisis-card strong {
+      display: flex; align-items: center; gap: 7px;
+      margin-bottom: 5px; color: var(--rose-500); font-size: 13.5px;
+    }
+
+    /* Typing indicator */
+    .typing-row { display: flex; align-items: flex-end; gap: 12px; animation: fadeUp 0.3s ease both; }
+    .typing-bub {
+      background: var(--bg-card);
+      border: 1px solid var(--br-soft);
+      border-radius: var(--radius-lg); border-bottom-left-radius: 4px;
+      padding: 14px 18px;
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13px; color: var(--ink-500);
+      box-shadow: var(--sh-md);
+    }
+    /* legacy hidden class */
+    .typing-row.hidden { display: none; }
+    .t-dots { display: flex; gap: 5px; align-items: center; }
+    .t-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--terra-400); animation: tdot 1.4s infinite;
+    }
+    .t-dot:nth-child(2) { animation-delay: 0.22s; }
+    .t-dot:nth-child(3) { animation-delay: 0.44s; }
+    @keyframes tdot {
+      0%, 70%, 100% { transform: scale(0.7); opacity: 0.4; }
+      35% { transform: scale(1); opacity: 1; }
+    }
+    /* Legacy typing-dots from file 1 */
+    .typing-dots { display: flex; gap: 5px; align-items: center; }
+    .typing-dots span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--terra-400); animation: tdot 1.4s infinite; display: block;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.22s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.44s; }
+
+    /* ── INPUT AREA ── */
+    .input-wrap {
+      padding: 16px 28px 18px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--br-soft);
+      flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .input-inner { width: 100%; max-width: var(--chat-max); }
+    .input-row { display: flex; align-items: center; gap: 10px; }
+    .input-pill {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1.5px solid var(--br-soft);
+      border-radius: var(--radius-pill);
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 14px;
+      box-shadow: var(--sh-sm);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-pill:focus-within { border-color: var(--terra-400); box-shadow: var(--sh-glow); }
+    .ia-btn {
+      width: 32px; height: 32px; background: transparent; border: none;
+      color: var(--ink-300); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; flex-shrink: 0;
+      transition: color 0.15s, background 0.15s, transform 0.15s;
+    }
+    .ia-btn:hover { color: var(--terra-400); background: rgba(168,82,30,0.08); transform: scale(1.1); }
+    /* Textarea — both id="user-input" (file1) and id="msgInput" (file2) */
+    .inp, #user-input {
+      flex: 1; background: transparent; border: none; outline: none;
+      color: var(--ink-900); font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px; resize: none; min-height: 22px; max-height: 100px; line-height: 1.5;
+    }
+    .inp::placeholder, #user-input::placeholder { color: var(--ink-300); }
+    /* Send button */
+    .send-btn, #send-btn {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--terra-400), var(--terra-600));
+      border: none; border-radius: 50%; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(140,62,18,0.35), 0 1px 4px rgba(140,62,18,0.2),
+                  inset 0 1px 0 rgba(255,255,255,0.18);
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s;
+    }
+    .send-btn:hover, #send-btn:hover {
+      transform: scale(1.1) translateY(-1px);
+      box-shadow: 0 6px 24px rgba(140,62,18,0.45), 0 2px 8px rgba(140,62,18,0.3);
+    }
+    .send-btn:active, #send-btn:active { transform: scale(0.96); }
+
+    /* Quick chips */
+    .chips-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; width: 100%; max-width: var(--chat-max); }
+    .qs-lbl { font-size: 11.5px; color: var(--ink-300); white-space: nowrap; }
+    .chip {
+      background: var(--bg-card);
+      border: 1px solid var(--br-soft);
+      border-radius: var(--radius-pill);
+      padding: 5px 14px; font-size: 12.5px;
+      color: var(--ink-700); font-weight: 500;
+      cursor: pointer; white-space: nowrap;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s, color 0.18s, background 0.18s;
+      box-shadow: var(--sh-xs);
+    }
+    .chip:hover { transform: translateY(-2px); box-shadow: var(--sh-md); border-color: var(--br-mid); }
+    .chip.c1 { border-color: rgba(168,82,30,0.25); color: var(--terra-500); background: rgba(168,82,30,0.06); }
+    .chip.c2 { border-color: rgba(61,140,126,0.25); color: var(--teal-500); background: rgba(61,140,126,0.06); }
+    .chip.c3 { border-color: rgba(90,128,96,0.25); color: var(--sage-500); background: rgba(90,128,96,0.06); }
+    .chip.c4 { border-color: rgba(184,120,32,0.25); color: var(--amber-500); background: rgba(184,120,32,0.06); }
+    .chip:hover.c1 { background: rgba(168,82,30,0.12); }
+    .chip:hover.c2 { background: rgba(61,140,126,0.12); }
+    .chip:hover.c3 { background: rgba(90,128,96,0.12); }
+    .chip:hover.c4 { background: rgba(184,120,32,0.12); }
+
+    /* Privacy note */
+    .priv { font-size: 11px; color: var(--ink-300); display: flex; align-items: center; gap: 5px; }
+
+    /* ── Mood check-in ── */
+    .overview-box {
+      background: var(--bg-glass); backdrop-filter: blur(12px);
+      border: 1px solid var(--br-soft);
+      border-radius: var(--radius-md); padding: 12px 14px;
+      box-shadow: var(--sh-xs);
+    }
+    .overview-box p { font-size: 12.5px; color: var(--ink-700); line-height: 1.65; }
+    .overview-box span { color: var(--terra-500); font-weight: 600; }
   </style>
 </head>
 <body>
 
-  <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-icon">🧠</div>
-      <div>
-        <h1 class="brand-name">MindEase</h1>
-        <p class="brand-tagline">Your wellness companion</p>
-      </div>
-    </div>
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
 
-    <!-- Live Analysis -->
-    <div class="nav-label">Live Analysis</div>
-    <div class="analysis-card">
-      <div class="analysis-row">
-        <span class="analysis-label">Sentiment</span>
+  <div class="logo">
+    <div class="logo-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9.5 2a2.5 2.5 0 0 0-2.45 2A3 3 0 0 0 5 7a3.5 3.5 0 0 0-2 3.2A3.5 3.5 0 0 0 5 13.5a3 3 0 0 0 .5 4A2.5 2.5 0 0 0 8 20h4"/>
+        <path d="M14.5 2a2.5 2.5 0 0 1 2.45 2A3 3 0 0 1 19 7a3.5 3.5 0 0 1 2 3.2 3.5 3.5 0 0 1-2 3.3 3 3 0 0 1-.5 4A2.5 2.5 0 0 1 16 20h-4"/>
+        <line x1="12" y1="2" x2="12" y2="20" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+        <path d="M9 8c0 1 .5 1.5 1.5 1.5S12 9 12 8" stroke="rgba(255,255,255,0.8)" stroke-width="1.2"/>
+        <path d="M15 8c0 1-.5 1.5-1.5 1.5S12 9 12 8" stroke="rgba(255,255,255,0.8)" stroke-width="1.2"/>
+        <path d="M9 13c0 1 .5 1.5 1.5 1.5S12 14 12 13" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/>
+        <path d="M15 13c0 1-.5 1.5-1.5 1.5S12 14 12 13" stroke="rgba(255,255,255,0.6)" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <h2>MindCare</h2>
+      <p>Your Wellness Companion</p>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+      <div class="toggle-thumb">
+        <svg class="ti-sun" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#b5651d" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="ti-moon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </div>
+    </button>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Live Analysis (from file 1 logic) -->
+  <div>
+    <div class="slabel">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Live Analysis
+    </div>
+    <div class="analysis-card" style="margin-top:10px">
+      <div class="arow">
+        <label>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c04040" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Sentiment
+        </label>
         <span class="badge" id="badge-sentiment">—</span>
       </div>
-      <div class="analysis-row" style="margin-top:.75rem;">
-        <span class="analysis-label">Stress Level</span>
+      <div class="arow">
+        <label>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b09080" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Stress Level
+        </label>
         <span class="badge" id="badge-stress">—</span>
       </div>
-    </div>
-
-    <!-- Model Info -->
-    <div class="nav-label" style="margin-top:1.5rem;">🏆 Active Models</div>
-    <div class="analysis-card">
-      <div class="model-row">
-        <span class="model-label">Sentiment</span>
-        <span class="model-value">{{ model_info.sentiment_model }}</span>
-        <span class="model-acc">{{ model_info.sentiment_acc }}%</span>
+      <div class="last-up" id="last-updated" style="display:none;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="last-updated-time">—</span>
       </div>
-      <div class="model-row" style="margin-top:.6rem;">
-        <span class="model-label">Stress</span>
-        <span class="model-value">{{ model_info.stress_model }}</span>
-        <span class="model-acc">{{ model_info.stress_acc }}%</span>
-      </div>
-      <p class="model-note">Best CV accuracy wins between Logistic Regression &amp; Naive Bayes</p>
-      <a href="/report" target="_blank" class="report-link">📊 View full comparison →</a>
     </div>
+  </div>
 
-    <!-- Helplines -->
-    <div class="nav-label" style="margin-top:1.5rem;">🆘 Helplines</div>
-    <div class="helpline-list">
-      <div class="helpline-item"><strong>iCall</strong><br/>9152987821</div>
-      <div class="helpline-item"><strong>Vandrevala Foundation</strong><br/>1860-2662-345 (24×7)</div>
-      <div class="helpline-item"><strong>NIMHANS</strong><br/>080-46110007</div>
+  <!-- Mood Check-in -->
+  <div>
+    <div class="slabel">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      Today's Check-in
     </div>
-
-    <button class="clear-btn" id="clear-btn">🗑 Clear Chat</button>
-
-    <!-- ── Google User Strip ── -->
-    {% if user %}
-    <div class="user-strip">
-      <img src="{{ user.picture }}" alt="avatar" referrerpolicy="no-referrer"/>
-      <div class="user-strip-info">
-        <div class="user-strip-name">{{ user.name }}</div>
-        <div class="user-strip-email">{{ user.email }}</div>
+    <div class="overview-box" style="margin-top:10px">
+      <div style="font-size:11px;color:var(--ink-300);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:8px;">How are you feeling today?</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;">
+        <span onclick="setMood(this,'Low')"   style="cursor:pointer;padding:4px 10px;border-radius:20px;font-size:12px;border:1px solid var(--br-mid);color:var(--ink-700);background:var(--bg-card);transition:all 0.15s;" class="mood-chip">Low</span>
+        <span onclick="setMood(this,'Okay')"  style="cursor:pointer;padding:4px 10px;border-radius:20px;font-size:12px;border:1px solid var(--br-mid);color:var(--ink-700);background:var(--bg-card);transition:all 0.15s;" class="mood-chip">Okay</span>
+        <span onclick="setMood(this,'Good')"  style="cursor:pointer;padding:4px 10px;border-radius:20px;font-size:12px;border:1px solid var(--br-mid);color:var(--ink-700);background:var(--bg-card);transition:all 0.15s;" class="mood-chip">Good</span>
+        <span onclick="setMood(this,'Great')" style="cursor:pointer;padding:4px 10px;border-radius:20px;font-size:12px;border:1px solid var(--br-mid);color:var(--ink-700);background:var(--bg-card);transition:all 0.15s;" class="mood-chip">Great</span>
       </div>
-      <a href="/auth/logout" class="logout-btn" title="Sign out">⏏</a>
+      <p style="font-size:12px;color:var(--ink-500);line-height:1.6;"><span style="color:var(--terra-500);font-weight:600;">Your space, your pace.</span> Share as much or as little as you like — I'm always here.</p>
     </div>
-    {% endif %}
-  </aside>
+  </div>
 
-  <!-- ── Main Chat ─────────────────────────────────────────────────────── -->
-  <main class="chat-container">
-
-    <header class="chat-header">
-      <div class="header-left">
-        <div class="status-dot"></div>
-        <span>MindEase is here for you</span>
+  <!-- Helplines -->
+  <div>
+    <div class="slabel">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.51a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 16h.3z"/></svg>
+      Helplines
+    </div>
+    <div class="helplines" style="margin-top:10px">
+      <div class="hline">
+        <div class="hicon warm">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b4513" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.51a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 16h.3z"/></svg>
+        </div>
+        <div><h4>Talk to a Therapist</h4><p>1800-599-0019</p></div>
       </div>
-      <span class="header-sub">GLA University · CSE Mini Project 2025-26</span>
-    </header>
+      <div class="hline">
+        <div class="hicon teal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3d8c7e" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.51a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 16h.3z"/></svg>
+        </div>
+        <div><h4>Crisis Lifeline</h4><p>1-800-273-8255</p></div>
+      </div>
+      <div class="hline">
+        <div class="hicon red">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c04040" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div><h4>Emergency Services</h4><p class="em">14416</p></div>
+      </div>
+    </div>
+  </div>
 
-    <div class="messages" id="messages">
-      <div class="msg bot-msg">
-        <div class="msg-avatar">🧠</div>
+  <!-- Motivation -->
+  <div class="motiv">
+    It's okay to ask for help. You're stronger than you think.
+  </div>
+
+  <!-- Clear btn -->
+  <button class="clear-btn" id="clear-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+    Clear Chat
+  </button>
+
+  <!-- Google OAuth User Strip (from file 1) -->
+  {% if user %}
+  <div class="user-strip">
+    <img src="{{ user.picture }}" alt="avatar" referrerpolicy="no-referrer"/>
+    <div class="user-strip-info">
+      <div class="user-strip-name">{{ user.name }}</div>
+      <div class="user-strip-email">{{ user.email }}</div>
+    </div>
+    <a href="/auth/logout" class="logout-btn" title="Sign out">⏏</a>
+  </div>
+  {% endif %}
+
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="tbar-left">
+      <div class="bot-av">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="rgba(255,255,255,0.18)"/>
+          <circle cx="9" cy="10" r="1" fill="#fff" stroke="none"/>
+          <circle cx="15" cy="10" r="1" fill="#fff" stroke="none"/>
+          <path d="M18 2l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="#fff" stroke="none"/>
+        </svg>
+        <div class="online-dot"></div>
+      </div>
+      <div class="bot-info">
+        <h3>MindCare <span class="ai-tag">AI Assistant</span></h3>
+        <p>GLA University · CSE Mini Project 2025-26 <span style="color:var(--br-mid)">·</span> <span class="online-txt">Online</span></p>
+      </div>
+    </div>
+    <div class="tbar-right">
+      <div class="icoBtn" title="Search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <div class="icoBtn" title="History">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="icoBtn" title="Settings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Chat messages — mirrors doc 5 structure exactly -->
+  <div class="messages" id="messages">
+
+    <div class="date-div">Today</div>
+
+    <!-- Welcome message -->
+    <div class="msg bot-msg">
+      <div class="msg-avatar">🧠</div>
+      <div class="msg-body">
         <div class="msg-bubble">
           {% if user %}
-          <p>Hello, <strong>{{ user.name.split()[0] }}</strong>! 👋 I'm <strong>MindEase</strong>, your personal mental wellness companion.</p>
+          <p>Hello, <strong>{{ user.name.split()[0] }}</strong>! 👋 I'm <strong>MindCare</strong>, your personal mental wellness companion.</p>
           {% else %}
-          <p>Hello! 👋 I'm <strong>MindEase</strong>, your personal mental wellness companion.</p>
+          <p>Hello! 👋 I'm <strong>MindCare</strong>, your personal mental wellness companion.</p>
           {% endif %}
           <p style="margin-top:.5rem;">Feel free to share how you're feeling today — about college, studies, relationships, or anything on your mind. I'm here to listen and support you. 💙</p>
           <p style="margin-top:.5rem;font-size:.8rem;opacity:.7;">⚠️ I am not a medical professional. For clinical support please contact a counselor.</p>
@@ -164,23 +832,176 @@
       </div>
     </div>
 
-    <div class="typing-indicator hidden" id="typing">
-      <div class="msg-avatar">🧠</div>
-      <div class="typing-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- Typing indicator — sibling of #messages, exactly like doc 5 -->
+  <div class="typing-indicator hidden" id="typing">
+    <div class="msg-avatar">🧠</div>
+    <div class="typing-bub">
+      AI is thinking
+      <div class="t-dots">
+        <div class="t-dot"></div>
+        <div class="t-dot"></div>
+        <div class="t-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input area -->
+  <div class="input-wrap">
+    <div class="input-inner">
+      <div class="input-row">
+        <div class="input-pill">
+          <button class="ia-btn" title="Attach file">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+          <button class="ia-btn" title="Voice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          </button>
+          <!-- id="user-input" keeps compatibility with chat.js from file 1 -->
+          <textarea class="inp" id="user-input" placeholder="Share how you're feeling today…" rows="1" maxlength="500"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+          <button class="ia-btn" title="Emoji">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </button>
+        </div>
+        <!-- id="send-btn" keeps compatibility with chat.js from file 1 -->
+        <button class="send-btn" id="send-btn" title="Send">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
     </div>
 
-    <div class="input-area">
-      <textarea id="user-input" placeholder="Share how you're feeling today…" rows="1" maxlength="500"></textarea>
-      <button id="send-btn" title="Send">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"></line>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-        </svg>
-      </button>
+    <div class="chips-row">
+      <span class="qs-lbl">Quick Suggestions:</span>
+      <span class="chip c1">I need help</span>
+      <span class="chip c2">I'm feeling anxious</span>
+      <span class="chip c3">Let's talk</span>
+      <span class="chip c4">Thank you</span>
     </div>
 
-  </main>
+    <div class="priv">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#5a8060" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Your conversations are private and secure. You're safe here.
+    </div>
+  </div>
 
-  <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</div>
+
+<script>
+  // ── Dark mode toggle ──
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+  });
+
+  // ── Mood check-in ──
+  function setMood(el, label) {
+    document.querySelectorAll('.mood-chip').forEach(c => {
+      c.style.background = 'var(--bg-card)';
+      c.style.borderColor = 'var(--br-mid)';
+      c.style.color = 'var(--ink-700)';
+      c.style.fontWeight = '400';
+    });
+    el.style.background = 'linear-gradient(135deg, var(--terra-400), var(--terra-600))';
+    el.style.borderColor = 'transparent';
+    el.style.color = '#fff';
+    el.style.fontWeight = '600';
+  }
+
+  // ── Quick chips fill input (file 2 logic) ──
+  document.querySelectorAll('.chip').forEach(c => {
+    c.addEventListener('click', () => {
+      const inp = document.getElementById('user-input');
+      inp.value = c.textContent.trim();
+      inp.focus();
+      inp.style.height = 'auto';
+      inp.style.height = inp.scrollHeight + 'px';
+    });
+  });
+
+  // ── Badge update helper (from file 1 logic) ──
+  function updateBadge(el, value) {
+    if (!el || !value || value === '—') return;
+    el.textContent = value;
+    el.className = 'badge';
+    const v = value.toLowerCase();
+    if (v === 'positive') el.classList.add('positive');
+    else if (v === 'negative') el.classList.add('negative');
+    else if (v === 'neutral') el.classList.add('neutral');
+    else if (v === 'high') el.classList.add('high');
+    else if (v === 'medium') el.classList.add('medium');
+    else if (v === 'low') el.classList.add('low');
+    // Show last-updated
+    const lu = document.getElementById('last-updated');
+    if (lu) {
+      lu.style.display = 'flex';
+      document.getElementById('last-updated-time').textContent =
+        new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    }
+  }
+
+  // ── Message rendering helper ──
+  function appendMessage(role, html) {
+    const messages = document.getElementById('messages');
+    const div = document.createElement('div');
+    div.className = 'msg ' + (role === 'user' ? 'user-msg' : 'bot-msg');
+
+    const timeStr = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+    if (role === 'user') {
+      div.innerHTML = `
+        <div class="msg-body">
+          <div class="msg-bubble">${html}</div>
+          <div class="msg-time">${timeStr} <span class="check">&#10003;&#10003;</span></div>
+        </div>`;
+    } else {
+      div.innerHTML = `
+        <div class="msg-avatar">🧠</div>
+        <div class="msg-body">
+          <div class="msg-bubble">${html}</div>
+          <div class="msg-time">${timeStr}</div>
+        </div>`;
+    }
+
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // ── Fallback send ──
+  document.getElementById('send-btn').addEventListener('click', _fallbackSend);
+  document.getElementById('user-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); _fallbackSend(); }
+  });
+
+  function _fallbackSend() {
+    if (window._chatJsLoaded) return;
+    const inp = document.getElementById('user-input');
+    const text = inp.value.trim();
+    if (!text) return;
+    appendMessage('user', text.replace(/\n/g, '<br>'));
+    inp.value = ''; inp.style.height = 'auto';
+  }
+
+  // ── Clear chat ──
+  document.getElementById('clear-btn').addEventListener('click', () => {
+    const messages = document.getElementById('messages');
+    // Keep date-div (child 0) and welcome msg (child 1) only
+    while (messages.children.length > 2) messages.removeChild(messages.lastChild);
+    document.getElementById('badge-sentiment').textContent = '—';
+    document.getElementById('badge-sentiment').className = 'badge';
+    document.getElementById('badge-stress').textContent = '—';
+    document.getElementById('badge-stress').className = 'badge';
+    const lu = document.getElementById('last-updated');
+    if (lu) lu.style.display = 'none';
+  });
+
+  // Scroll to bottom on load
+  const wrap = document.getElementById('messages');
+  wrap.scrollTop = wrap.scrollHeight;
+</script>
+
+<!-- File 1's original chat.js (handles backend calls, typing indicator, badge updates) -->
+<script>window._chatJsLoaded = false;</script>
+<script src="{{ url_for('static', filename='js/chat.js') }}" onload="window._chatJsLoaded=true;"></script>
 </body>
 </html>

@@ -1,6 +1,0 @@
-Best Model: Random Forest
-CV Accuracy: 95.73%
-Logistic Regression: 94.08%
-Naive Bayes: 91.58%
-SVM: 94.48%
-Random Forest: 95.73%
